@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Gastos</string>
+    <string name="act_main_total_debt">Deuda total</string>
+    <string name="act_main_concept">Concepto</string>
+    <string name="act_main_amount">Monto</string>
+    <string name="act_main_type">Tipo</string>
+</resources>
