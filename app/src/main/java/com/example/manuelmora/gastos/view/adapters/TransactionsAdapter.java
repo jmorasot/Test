@@ -18,6 +18,13 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmList;
 
+/**
+ * @author Juan Mora
+ * @since 11/09/2018 13:18
+ *
+ * Class to manage the list of MainActivity's transactions.
+ */
+
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionHolder> {
 
     private List<Transaction> mTransactionList;
@@ -27,6 +34,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         update();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public TransactionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,16 +45,27 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         return new TransactionHolder(transactionView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBindViewHolder(@NonNull TransactionHolder holder, int position) {
         holder.bindElements(mTransactionList.get(position));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemCount() {
         return mTransactionList.size();
     }
 
+    /**
+     * Fill the transactions list to show it in MainActivity
+     *
+     * @return The transactions list
+     */
     public List<Transaction> update() {
         Realm realm = Realm.getDefaultInstance();
         mTransactionList = realm.copyFromRealm(realm.where(Transaction.class).findAll());
@@ -52,6 +73,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         notifyDataSetChanged();
         return mTransactionList;
     }
+
+    /**
+     * Class to bind the view's components to show the transactions.
+     *
+     */
 
     class TransactionHolder extends RecyclerView.ViewHolder {
         ImageView mTypeImageView;
@@ -66,6 +92,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         }
 
         void bindElements(Transaction transaction) {
+            // Evaluate the transaction's type to set the image to display and the background's color
             if (transaction.type.equals(Transaction.DEBT_TYPE)){
                 mTypeImageView.setBackgroundColor(Color.rgb(230, 17, 17));
                 mTypeImageView.setImageResource(R.drawable.ic_debt);
