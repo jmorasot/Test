@@ -6,12 +6,14 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.manuelmora.gastos.R;
 import com.example.manuelmora.gastos.model.Transaction;
+import com.example.manuelmora.gastos.view.activities.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ import io.realm.RealmList;
 public class TransactionDialog {
     private AppCompatActivity mActivity;
     private Realm mRealm;
+    private EditText mCardEditText;
 
     public TransactionDialog(AppCompatActivity activity){
         mActivity = activity;
@@ -50,6 +53,8 @@ public class TransactionDialog {
 
         EditText conceptEditText = dialogView.findViewById(R.id.dialog_transaction_concept);
         EditText amountEditText = dialogView.findViewById(R.id.dialog_transaction_amount);
+        Button scanButton = dialogView.findViewById(R.id.dialog_transaction_scan);
+        mCardEditText = dialogView.findViewById(R.id.dialog_transaction_card);
 
         // Evaluates if the transaction's type is a payment to show the correct views and concepts list
         if (isPayment) {
@@ -80,6 +85,9 @@ public class TransactionDialog {
             });
         }
 
+        scanButton.setOnClickListener(view -> {
+            ((MainActivity) mActivity).callScanActivity();
+        });
         builder.setView(dialogView);
         builder.setTitle(isPayment ? "Abonar a deuda" : "Agregar un gasto");
         // Set the click listener to null because the dialog is closing and ignoring the validations
@@ -110,6 +118,10 @@ public class TransactionDialog {
                 Toast.makeText(mActivity, "Datos incompletos", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void printScannedCard(String redactedCardNumber) {
+        mCardEditText.setText(redactedCardNumber);
     }
 
     public interface Callback {

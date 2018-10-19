@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/dialog_transaction_concept"
             android:inputType="text"
-            android:maxLines="2" />
+            android:maxLines="2"
+            tools:ignore="Autofill" />
     </android.support.design.widget.TextInputLayout>
     <Spinner
         android:id="@+id/dialog_transaction_concept_list"
@@ -49,6 +50,21 @@
             android:layout_height="wrap_content"
             android:hint="@string/dialog_transaction_amount"
             android:inputType="numberDecimal"
-            android:maxLines="1" />
+            android:maxLines="1"
+            tools:ignore="Autofill" />
     </android.support.design.widget.TextInputLayout>
+    <EditText
+        android:id="@+id/dialog_transaction_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        android:maxLines="1"
+        tools:ignore="Autofill,LabelFor" />
+    <Button
+        android:id="@+id/dialog_transaction_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan"
+        tools:ignore="HardcodedText" />
 </LinearLayout>
